@@ -10,12 +10,27 @@ export async function POST(req: Request) {
   try {
     const { menuItemId, date } = await req.json();
 
-    const existing = await prisma.order.findFirst({
-      where: { userId: session.user.id, date }
+    const menuItem = await prisma.menuItem.findUnique({
+      where: { id: menuItemId }
     });
 
-    if (existing) {
-      return NextResponse.json({ error: "Already ordered today" }, { status: 400 });
+    if (!menuItem) {
+      return NextResponse.json({ error: "Menu item not found" }, { status: 404 });
+    }
+
+    const existingSameCategory = await prisma.order.findFirst({
+      where: { 
+        userId: session.user.id, 
+        date,
+        menuItem: {
+          // @ts-expect-error Prisma types missing locally
+          category: menuItem.category || "Food"
+        }
+      }
+    });
+
+    if (existingSameCategory) {
+      return NextResponse.json({ error: `Already ordered from ${menuItem.category || "Food"} today` }, { status: 400 });
     }
 
     const order = await prisma.order.create({

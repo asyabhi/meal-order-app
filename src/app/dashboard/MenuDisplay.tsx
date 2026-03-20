@@ -12,7 +12,7 @@ type MenuItem = {
   isGlutenFree: boolean;
 };
 
-export default function MenuDisplay({ items, today, hasOrdered = false, orderedItemId }: { items: MenuItem[], today: string, hasOrdered?: boolean, orderedItemId?: string }) {
+export default function MenuDisplay({ items, today, orderedCategories = [], orderedItemIds = [] }: { items: MenuItem[], today: string, orderedCategories?: string[], orderedItemIds?: string[] }) {
   const [loading, setLoading] = useState(false);
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const router = useRouter();
@@ -61,11 +61,11 @@ export default function MenuDisplay({ items, today, hasOrdered = false, orderedI
       </div>
       <button 
         onClick={() => handleOrder(item.id)} 
-        disabled={loading || hasOrdered}
+        disabled={loading || orderedCategories.includes(item.category || "Food")}
         className="button" 
-        style={{ width: "100%", padding: "0.75rem", opacity: (loading && loadingId !== item.id) || hasOrdered ? 0.5 : 1, cursor: hasOrdered ? "not-allowed" : "pointer" }}
+        style={{ width: "100%", padding: "0.75rem", opacity: (loading && loadingId !== item.id) || orderedCategories.includes(item.category || "Food") ? 0.5 : 1, cursor: orderedCategories.includes(item.category || "Food") ? "not-allowed" : "pointer" }}
       >
-        {hasOrdered ? (orderedItemId === item.id ? "Already Ordered" : "Limit Reached") : (loading && loadingId === item.id ? "Ordering..." : "Order This")}
+        {orderedCategories.includes(item.category || "Food") ? (orderedItemIds.includes(item.id) ? "Already Ordered" : "Category Limit Reached") : (loading && loadingId === item.id ? "Ordering..." : "Order This")}
       </button>
     </div>
   );
