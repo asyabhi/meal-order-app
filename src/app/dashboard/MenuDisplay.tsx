@@ -11,7 +11,7 @@ type MenuItem = {
   isGlutenFree: boolean;
 };
 
-export default function MenuDisplay({ items, today }: { items: MenuItem[], today: string }) {
+export default function MenuDisplay({ items, today, hasOrdered = false }: { items: MenuItem[], today: string, hasOrdered?: boolean }) {
   const [loading, setLoading] = useState(false);
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const router = useRouter();
@@ -59,11 +59,11 @@ export default function MenuDisplay({ items, today }: { items: MenuItem[], today
           </div>
           <button 
             onClick={() => handleOrder(item.id)} 
-            disabled={loading}
+            disabled={loading || hasOrdered}
             className="button" 
-            style={{ width: "100%", padding: "0.75rem", opacity: loading && loadingId !== item.id ? 0.5 : 1 }}
+            style={{ width: "100%", padding: "0.75rem", opacity: (loading && loadingId !== item.id) || hasOrdered ? 0.5 : 1, cursor: hasOrdered ? "not-allowed" : "pointer" }}
           >
-            {loading && loadingId === item.id ? "Ordering..." : "Order This Meal"}
+            {hasOrdered ? "Already Ordered" : (loading && loadingId === item.id ? "Ordering..." : "Order This Meal")}
           </button>
         </div>
       ))}
