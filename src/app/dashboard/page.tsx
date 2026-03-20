@@ -45,7 +45,7 @@ export default async function UserDashboard() {
       )}
       
       <h2 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1.5rem" }}>Today&apos;s Menu</h2>
-      <MenuDisplay items={menuItems} today={today} hasOrdered={!!existingOrder} />
+      <MenuDisplay items={menuItems} today={today} hasOrdered={!!existingOrder} orderedItemId={existingOrder?.menuItemId} />
     </main>
   );
 }
