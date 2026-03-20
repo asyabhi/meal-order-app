@@ -29,9 +29,12 @@ export default function MenuDisplay({ items, today, orderedCategories = [], orde
     });
 
     if (res.ok) {
+      setLoading(false);
+      setLoadingId(null);
       router.refresh();
     } else {
-      alert("Failed to place order.");
+      const data = await res.json().catch(() => ({}));
+      alert(`Failed to place order: ${data.error || "Unknown server error"}`);
       setLoading(false);
       setLoadingId(null);
     }

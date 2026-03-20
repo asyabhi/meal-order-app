@@ -1,0 +1,1 @@
+import { PrismaClient } from "@prisma/client"; const prisma = new PrismaClient(); async function main() { try { const res = await prisma.order.findFirst({ where: { menuItem: { category: "Drinks" } } }); console.log("OK", res); } catch(e) { console.error("ERR", e); } finally { await prisma.$disconnect(); } } main();

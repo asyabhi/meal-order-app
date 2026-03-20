@@ -20,11 +20,11 @@ model MenuItem {
   id           String  @id @default(cuid())
   name         String
   description  String
-  category     String  @default("Food")
   imageUrl     String?
   isVegan      Boolean @default(false)
   isGlutenFree Boolean @default(false)
   isActive     Boolean @default(true)
+  category     String  @default("Food")
   orders       Order[]
 }
 
@@ -33,7 +33,7 @@ model Order {
   userId     String
   menuItemId String
   orderTime  DateTime @default(now())
-  date       String   
-  user       User     @relation(fields: [userId], references: [id])
+  date       String
   menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 }
