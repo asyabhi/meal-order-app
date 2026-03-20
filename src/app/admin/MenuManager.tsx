@@ -7,6 +7,7 @@ type MenuItem = {
   id: string;
   name: string;
   description: string;
+  category: string;
   isVegan: boolean;
   isGlutenFree: boolean;
 };
@@ -15,6 +16,7 @@ export default function MenuManager({ initialItems }: { initialItems: MenuItem[]
   const [items, setItems] = useState<MenuItem[]>(initialItems);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Food");
   const [isVegan, setIsVegan] = useState(false);
   const [isGlutenFree, setIsGlutenFree] = useState(false);
   const router = useRouter();
@@ -24,7 +26,7 @@ export default function MenuManager({ initialItems }: { initialItems: MenuItem[]
     const res = await fetch("/api/menu", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, description, isVegan, isGlutenFree })
+      body: JSON.stringify({ name, description, category, isVegan, isGlutenFree })
     });
     
     if (res.ok) {
@@ -32,6 +34,7 @@ export default function MenuManager({ initialItems }: { initialItems: MenuItem[]
       setItems([...items, newItem]);
       setName("");
       setDescription("");
+      setCategory("Food");
       setIsVegan(false);
       setIsGlutenFree(false);
       router.refresh();
@@ -61,6 +64,13 @@ export default function MenuManager({ initialItems }: { initialItems: MenuItem[]
            <textarea value={description} onChange={e => setDescription(e.target.value)} required style={{ width: "100%", padding: "0.5rem", border: "1px solid var(--border)", borderRadius: "var(--radius)", minHeight: "80px" }} />
         </div>
         <div style={{ display: "flex", gap: "1.5rem" }}>
+           <div style={{ flex: 1 }}>
+             <label style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.875rem", fontWeight: "500" }}>Category</label>
+             <select value={category} onChange={e => setCategory(e.target.value)} style={{ width: "100%", padding: "0.5rem", border: "1px solid var(--border)", borderRadius: "var(--radius)", backgroundColor: "var(--background)" }}>
+               <option value="Food">Food</option>
+               <option value="Drinks">Drinks</option>
+             </select>
+           </div>
           <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.875rem" }}><input type="checkbox" checked={isVegan} onChange={e => setIsVegan(e.target.checked)} /> Vegan</label>
           <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.875rem" }}><input type="checkbox" checked={isGlutenFree} onChange={e => setIsGlutenFree(e.target.checked)} /> Gluten-Free</label>
         </div>
@@ -74,6 +84,7 @@ export default function MenuManager({ initialItems }: { initialItems: MenuItem[]
               <h3 style={{ fontWeight: "bold", marginBottom: "0.25rem" }}>{item.name}</h3>
               <p style={{ fontSize: "0.875rem", color: "#64748b" }}>{item.description}</p>
               <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.75rem" }}>
+                <span style={{ fontSize: "0.75rem", padding: "0.25rem 0.6rem", backgroundColor: "#e2e8f0", color: "#334155", borderRadius: "1rem", fontWeight: "600" }}>{item.category || "Food"}</span>
                 {item.isVegan && <span style={{ fontSize: "0.75rem", padding: "0.25rem 0.5rem", backgroundColor: "#dcfce7", color: "#166534", borderRadius: "1rem", fontWeight: "500" }}>Vegan</span>}
                 {item.isGlutenFree && <span style={{ fontSize: "0.75rem", padding: "0.25rem 0.5rem", backgroundColor: "#fef08a", color: "#854d0e", borderRadius: "1rem", fontWeight: "500" }}>Gluten-Free</span>}
               </div>

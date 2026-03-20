@@ -20,6 +20,7 @@ model MenuItem {
   id           String  @id @default(cuid())
   name         String
   description  String
+  category     String  @default("Food")
   imageUrl     String?
   isVegan      Boolean @default(false)
   isGlutenFree Boolean @default(false)
