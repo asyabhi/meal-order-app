@@ -49,6 +49,7 @@ export default function Navbar() {
             <Link href="/register" className="button">Register</Link>
           </>
         )}
+        <img src="/logo.png" alt="Comcorp Logo" style={{ height: "35px", marginLeft: "1rem", objectFit: "contain" }} />
       </div>
     </nav>
   );

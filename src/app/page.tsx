@@ -3,6 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+      <img src="/logo.png" alt="Comcorp Logo" style={{ height: "70px", marginBottom: "2rem", objectFit: "contain" }} />
       <div className="card" style={{ maxWidth: '32rem', width: '100%', textAlign: 'center' }}>
         <h1 style={{ marginBottom: '1rem', fontSize: '2rem', fontWeight: 'bold' }}>Meal Order App</h1>
         <p style={{ marginBottom: '2rem', color: '#64748b' }}>

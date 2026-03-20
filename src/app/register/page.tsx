@@ -50,6 +50,7 @@ export default function RegisterPage() {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+      <img src="/logo.png" alt="Comcorp Logo" style={{ height: "70px", marginBottom: "2rem", objectFit: "contain" }} />
       <div className="card" style={{ width: "100%", maxWidth: "400px" }}>
         <h2 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1.5rem", textAlign: "center" }}>Create Account</h2>
         
