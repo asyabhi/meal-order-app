@@ -23,7 +23,6 @@ export async function POST(req: Request) {
         userId: session.user.id, 
         date,
         menuItem: {
-          // @ts-expect-error Prisma types missing locally
           category: menuItem.category || "Food"
         }
       }
