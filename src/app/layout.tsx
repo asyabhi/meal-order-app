@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import Navbar from "@/components/Navbar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -33,6 +34,7 @@ export default function RootLayout({
           {children}
         </AuthProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
