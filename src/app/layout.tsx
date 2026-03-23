@@ -30,8 +30,15 @@ export default function RootLayout({
     <html lang="en" className={`${montserrat.variable} ${geistMono.variable}`}>
       <body>
         <AuthProvider>
-          <Navbar />
-          {children}
+          <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+            <Navbar />
+            <div style={{ flex: 1 }}>
+              {children}
+            </div>
+            <footer style={{ textAlign: "center", padding: "1.5rem", fontSize: "0.875rem", color: "#64748b", borderTop: "1px solid var(--border)", marginTop: "auto" }}>
+              Created by Abhitendra Singh
+            </footer>
+          </div>
         </AuthProvider>
         <SpeedInsights />
         <Analytics />
